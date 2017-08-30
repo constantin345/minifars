@@ -1,0 +1,68 @@
+---
+title: "How to use minifars package"
+author: "Constantin Cosma"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"How to use minifars package"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(minifars)
+```
+
+## General Info
+
+This package queries and plot information about fatal traffic accidents using FARS data.
+FARS represents data from the __US National Highway Traffic Safety Administration's Fatality Analysis Reporting System__, which is a nationwide census providing the American public yearly data regarding fatal injuries suffered in motor vehicle traffic crashes.
+You can find detailed information at the location [FARS](https://crashstats.nhtsa.dot.gov/#/DocumentTypeList/4).
+
+## The Data
+
+The package comes with the files `accident_2013.csv.bz2`, `accident_2014.csv.bz2` and `accident_2015.csv.bz2`. If you want to use the data, use those steps:
+
+1. the working directory becomes the directory with data
+```{r, eval=FALSE}
+library(minifars)
+save_ <- getwd()
+dir_data <- system.file("extdata", file="accident_2013.csv.bz2", package="minifars")
+setwd(dirname(dir_data))
+```
+
+2. use the functions from package
+
+3. return to the original directory
+```{r, eval=FALSE}
+getwd(save_)
+```
+
+__Note.__
+It's sufficient to create a directory on your disk (named `datafars` for example) and copy there the file of data. Before you use the functions from package, set the working directory there.
+
+
+## The functions
+
+The users have access to two functions from package:
+
+1. `fars_summarize_years`
+
+`fars_summarize_years` - creates a summary of number of accidents (_from a vector of years_) grouped by month and year.
+
+```{r, eval=FALSE}
+fars_summarize_years(years=2014)
+fars_summarize_years(c(2014, 2015))
+```
+
+
+2. `fars_map_state`
+
+`fars_map_state` draws a map (of _state.num_) with the positions (longitude and latitude) of accidents from a _year_. Here _stat.num_ is a vector of length 1, representing the identification code for a state. (see [state_code](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812315#27)).
+Parameter _year_ is a vector of length 1, representing the year when accidents was happened.
+
+
+```{r, eval=FALSE}
+fars_map_state(state.num=24, year=2014)
+fars_map_state(1, year=2015)
+```
