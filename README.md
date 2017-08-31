@@ -13,4 +13,6 @@ minifars_manual
 vignette('minifars_manual', package = 'minifars')
 ```
 
+[![Build Status](https://travis-ci.org/constantin345/minifars.svg?branch=master)](https://travis-ci.org/constantin345/minifars)
+
 
